@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Carbon Footprint Tracker</title>
+</head>
+
+<!-- PAGE IS PROTECTED -->
+
+<body onload="checkLogin()">
+
+    <!-- HEADER WITH USER + LOGOUT -->
+    <header class="top-header">
+        <div>
+            <h1>🌍 Carbon Footprint Tracker</h1>
+            <p>Track Your Daily Activities & Save the Planet</p>
+        </div>
+
+        <div class="user-box">
+            <p><b>Logged in as:</b> <span id="user"></span></p>
+            <div class="button-container">
+                <button class="tip-btn">Tips</button>
+                <button onclick="window.location.href='history.html'" class="history-btn">
+                    History
+                </button>
+                <button onclick="logout()" class="logout-btn">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+
+        <h2>Enter Your Daily Activity</h2>
+
+        <label>Electricity Used (kWh):</label>
+        <input type="number" id="electricity" placeholder="e.g. 5">
+
+        <label>Vehicle Distance (km):</label>
+        <input type="number" id="vehicle" placeholder="e.g. 12">
+
+        <label>LPG Gas Used (kg):</label>
+        <input type="number" id="gas" placeholder="e.g. 0.5">
+
+        <button onclick="calculate()">Upload & Calculate</button>
+
+        <h3 id="result"></h3>
+
+        <hr>
+
+        <h3>✅ Last Saved Daily Activity</h3>
+        <p id="savedData"></p>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2025 Carbon Tracker | 🌱 <span id="userEmailFooter"></span> </p>
+    </footer>
+
+    <style>
+        /* 🌐 Google Font Import */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background: transparent;
+            overflow-x: hidden;
+        }
+
+        /*  BLURRED BACKGROUND IMAGE LAYER */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+                url("https://www.interreg-central.eu/wp-content/uploads/2024/11/AdobeStock_537514330-scaled-1.jpeg") center / cover no-repeat;
+
+            filter: blur(18px);
+            /* ONLY IMAGE IS BLURRED */
+            transform: scale(1.1);
+            /* Prevents white edges */
+            z-index: -1;
+        }
+
+        /* MODERN HEADER */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 40px;
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(10px);
+            color: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .top-header h1 {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .top-header p {
+            margin: 4px 0 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* USER AREA */
+        .user-box {
+            text-align: right;
+        }
+
+        .user-box p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* .logout-btn {
+  background: #ff5252;
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-top: 6px;
+  font-size: 13px;
+  transition: 0.3s;
+} */
+
+        .logout-btn {
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(5px);
+        }
+
+        /* .logout-btn:hover {
+  background: #d50000;
+  transform: scale(1.05);
+} */
+
+        .logout-btn:hover {
+            background: #ff5f5f;
+            border-color: #ff5f5f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 95, 95, 0.4);
+        }
+
+        /* GLASS CONTAINER CARD */
+        .container {
+            width: 100%;
+            max-width: 420px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            color: #bed4b0;
+        }
+
+        .container h2,
+        .container h3 {
+            text-align: center;
+        }
+
+        label {
+            font-weight: 600;
+            margin-top: 15px;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: none;
+            margin-top: 5px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        /* MODERN BUTTON */
+        button {
+            margin-top: 25px;
+            width: 100%;
+            padding: 14px;
+            border-radius: 30px;
+            border: none;
+            background: linear-gradient(to right, #3b9661, #457f21);
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 600;
+        }
+
+        button:hover {
+            transform: scale(1.04);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* RESULT */
+        #result {
+            margin-top: 20px;
+            color: #bed4b0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* SAVED DATA */
+        #savedData {
+            margin-top: 15px;
+            font-size: 16px;
+            line-height: 1.6;
+            background: rgba(248, 246, 246, 0.4);
+            padding: 16px;
+            border-radius: 12px;
+            color: #bed4b0;
+            ;
+        }
+
+        /* MODERN FOOTER */
+        footer {
+            margin-top: auto;
+            background: rgba(0, 0, 0, 0.25);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-size: 13px;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 500px) {
+            .top-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .container {
+                margin: 40px 15px;
+                padding: 25px;
+            }
+        }
+
+        /* Add this to style.css */
+        .history-btn {
+            width: 100%;
+            margin-top: 25px;
+            padding: 10px 20px;
+            border-radius: 40px;
+            border: none;
+            /* Use a gradient similar to your 'Upload' button but different colors */
+            background: linear-gradient(to right, #284e0f, #3b9661);
+            color: rgb(248, 247, 247);
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 15px;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-right: 20px;
+        }
+
+        /* .history-button{
+  margin-right:20px;
+} */
+
+        .history-btn:hover {
+            transform: scale(1.04);
+            filter: brightness(1.2);
+        }
+
+        .tip-btn {
+            width: 100%;
+            margin-top: 25px;
+            padding: 10px 20px;
+            border-radius: 40px;
+            border: none;
+            background: linear-gradient(to right, #284e0f, #3b9661);
+            color: rgb(248, 247, 247);
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 15px;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-right: 20px;
+        }
+
+        .tip-btn:hover {
+            transform: scale(1.04);
+            filter: brightness(1.2);
+        }
+
+        .button-container {
+            display: flex;
+        }
+    </style>
+
+    <script>
+        // Check login
+        function checkLogin() {
+            if (!localStorage.getItem('userId')) {
+                window.location.href = 'login.html';
+            } else {
+                document.getElementById("user").innerText = localStorage.getItem("userName") || "User";
+                document.getElementById("userEmailFooter").innerText = localStorage.getItem("userEmail") || "";
+                loadStats();
+            }
+        }
+
+        // Load stats from backend
+        async function loadStats() {
+            const userId = localStorage.getItem('userId');
+            const res = await fetch(`/api/tracker/stats/${userId}`);
+            const data = await res.json();
+            if (data.total_carbon_kg !== undefined) {
+                document.getElementById("savedData").innerHTML = `<b>Total Carbon: ${data.total_carbon_kg} kg</b><br>Entries: ${data.entries}`;
+            }
+        }
+
+        // Logout
+        function logout() {
+            localStorage.clear();
+            window.location.href = "login.html";
+        }
+
+        // Calculate and send to backend
+        async function calculate() {
+            const userId = localStorage.getItem('userId');
+            const electricity = parseFloat(document.getElementById("electricity").value) || 0;
+            const vehicle = parseFloat(document.getElementById("vehicle").value) || 0;
+            const gas = parseFloat(document.getElementById("gas").value) || 0;
+
+            if (electricity > 0) {
+                await trackActivity(userId, 'electricity', electricity, 'kwh');
+            }
+            if (vehicle > 0) {
+                await trackActivity(userId, 'vehicle', vehicle, 'km');
+            }
+            if (gas > 0) {
+                await trackActivity(userId, 'gas', gas, 'kg');
+            }
+
+            document.getElementById("result").innerText = "Activities tracked successfully!";
+            loadStats(); // Refresh stats
+        }
+
+        // Helper to track activity
+        async function trackActivity(userId, type, value, unit) {
+            const res = await fetch('/api/tracker/activity', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: userId, type, value, unit })
+            });
+            const data = await res.json();
+            if (!res.ok) {
+                alert(`Error tracking ${type}: ${data.error}`);
+            }
+        }
+    </script>
+
+</body>
+
+</html>

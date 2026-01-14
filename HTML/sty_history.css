@@ -1,0 +1,236 @@
+/* 🌿 MODERN PREMIUM HISTORY DESIGN */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    min-height: 100vh;
+    /* Allows vertical scrolling for history entries */
+    overflow-x: hidden;
+}
+
+/* ✅ ENHANCED BACKGROUND WITH FIXED POSITION */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: 
+        linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+        url("https://www.interreg-central.eu/wp-content/uploads/2024/11/AdobeStock_537514330-scaled-1.jpeg")
+        center / cover no-repeat;
+    filter: blur(12px); /* Slightly clearer than 18px for better nature vibe */
+    transform: scale(1.1);
+    z-index: -1;
+}
+
+/* STICKY BLURRED HEADER */
+.top-header {
+    position: sticky;
+    top: 1;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+    z-index: 100;
+}
+
+.top-header h1 {
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.top-header p {
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+/* NAVIGATION BUTTONS */
+.user-box {
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.button-container
+{
+    display: flex;
+}
+.user-box>p
+{
+    text-align: right;
+}
+
+.logout-btn {
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(5px);
+}
+
+.logout-btn:hover {
+    background: #ff5f5f;
+    border-color: #ff5f5f;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 95, 95, 0.4);
+}
+
+.home-btn {
+    width: 100%;
+    margin-top: 2px;
+    padding: 10px 20px;
+    border-radius: 40px;
+    border: none;
+    /* Use a gradient similar to your 'Upload' button but different colors */
+    background: linear-gradient(to right, #284e0f, #3b9661); 
+    color: rgb(248, 247, 247);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    margin-right:20px;
+}
+.home-btn:hover {
+    transform: scale(1.04);
+    filter: brightness(1.2);
+}
+
+.tip-btn{
+    width: 100%;
+    margin-top: 2px;
+    padding: 10px 20px;
+    border-radius: 40px;
+    border: none;
+    background: linear-gradient(to right, #284e0f, #3b9661); 
+    color: rgb(248, 247, 247);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    margin-right:20px;
+}
+
+.tip-btn:hover{
+  transform: scale(1.04);
+  filter: brightness(1.2);
+}
+
+/* MAIN DASHBOARD CONTENT AREA */
+.login-body {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 100px; /* Space for footer */
+}
+
+/* THE GLASS CARD (Wider for History) */
+.login-box {
+    width: 90%;
+    max-width: 950px;
+    margin-top: 60px;
+    padding: 40px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* LIFETIME TOTAL BANNER */
+.total-banner {
+    background: linear-gradient(135deg, #3b9661 0%, #284e0f 100%);
+    padding: 25px;
+    border-radius: 18px;
+    margin-bottom: 35px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.total-banner h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* GRAPH CONTAINER STYLING */
+.graph-container {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 25px;
+    border-radius: 20px;
+    margin-bottom: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ENHANCED TABLE STYLING */
+.history-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px; /* Creates space between rows */
+}
+
+.history-table th {
+    color: #90ee90; /* Light nature green */
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.history-table td {
+    padding: 18px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    font-size: 0.95rem;
+    transition: 0.2s;
+}
+
+/* Rounded corners for individual rows */
+.history-table tr td:first-child { border-radius: 12px 0 0 12px; }
+.history-table tr td:last-child { border-radius: 0 12px 12px 0; }
+
+.history-table tr:hover td {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.01);
+    color: #90ee90;
+}
+
+/* STICKY FOOTER */
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    padding: 15px;
+    font-size: 13px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 100;
+}

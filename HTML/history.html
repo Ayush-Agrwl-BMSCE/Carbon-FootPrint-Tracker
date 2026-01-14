@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History | Carbon Tracker</title>
+    <link rel="stylesheet" href="sty_history.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body onload="checkLogin(); loadHistory()">
+
+    <header class="top-header">
+        <h1>🌍 Carbon Footprint Tracker</h1>
+        <p>Your Daily Impact History</p>
+        
+        <div class="user-box" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%);">
+            <p><b>Logged in as:</b> <span id="user"></span></p>
+            <div class="button-container">
+            <button onclick="window.location.href='tips.html'" class="tip-btn">Tips</button>
+            <button onclick="window.location.href='index.html'" class="home-btn">Home</button>
+            <button onclick="logout()" class="logout-btn">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="login-body">
+        <div class="login-box" style="width: 80%; max-width: 900px; margin-top: 80px; margin-bottom: 80px;">
+            <h1 style="color: #97b93a;">Global Contribution</h1>
+            
+            <div style="background: linear-gradient(to right, #3b9661, #457f21); color: white; padding: 15px; border-radius: 14px; margin-bottom: 25px;">
+                <h3 style="margin: 0;">Total Lifetime CO₂: <span id="lifetimeTotal">0.00</span> kg</h3>
+            </div>
+
+            <div class="graph-container" style="margin-bottom: 30px; background: rgba(255, 255, 255, 0.15); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.2);">
+                <canvas id="footprintChart"></canvas>
+            </div>
+
+            <h2 style="color: #97b93a; margin-bottom: 15px; text-align: left;">Detailed Logs</h2>
+            <div id="historyList">
+                <p style="color: #555;">Loading your activity history...</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Carbon Tracker | 🌱 Tracked by <span id="userNameFooter"></span></p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById("userNameFooter").innerText = localStorage.getItem("userName") || "Guest";
+    </script>
+</body>
+</html>
