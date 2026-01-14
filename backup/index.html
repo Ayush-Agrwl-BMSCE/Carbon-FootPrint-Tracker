@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Carbon Footprint Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<!-- PAGE IS PROTECTED -->
+<body onload="checkLogin()">
+
+  <!-- HEADER WITH USER + LOGOUT -->
+  <header class="top-header">
+    <div>
+      <h1>🌍 Carbon Footprint Tracker</h1>
+      <p>Track Your Daily Activities & Save the Planet</p>
+    </div>
+
+    <div class="user-box">
+      <p><b>Logged in as:</b> <span id="user"></span></p>
+      <div class="button-container">
+        <button onclick="window.location.href='tips.html'" class="tip-btn">Tips</button>
+        <button onclick="window.location.href='history.html'" class="history-btn">
+          History 
+        </button>
+        <button onclick="logout()" class="logout-btn">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <div class="container">
+
+    <h2>Enter Your Daily Activity</h2>
+
+    <label>Electricity Used (kWh):</label>
+    <input type="number" id="electricity" placeholder="e.g. 5">
+
+    <label>Vehicle Distance (km):</label>
+    <input type="number" id="vehicle" placeholder="e.g. 12">
+
+    <label>LPG Gas Used (kg):</label>
+    <input type="number" id="gas" placeholder="e.g. 0.5">
+
+    <button onclick="calculate()">Upload & Calculate</button>
+
+    <h3 id="result"></h3>
+
+    <hr>
+
+    <h3>✅ Last Saved Daily Activity</h3>
+    <p id="savedData"></p>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Carbon Tracker | 🌱 Tracked by <span id="userNameFooter"></span> </p>
+  </footer>
+
+  <!-- MAIN SCRIPT -->
+  <script src="script.js"></script>
+
+  <!-- SHOW USER + SAVED DATA -->
+  <script>
+    document.getElementById("user").innerText =
+      localStorage.getItem("userEmail") || "Guest";
+    document.getElementById("userNameFooter").innerText = localStorage.getItem("userName") || "Guest";
+    let saved = localStorage.getItem("dailyActivity");
+    if (saved) {
+      let data = JSON.parse(saved);
+      document.getElementById("savedData").innerHTML =
+        "Date: " + data.date + "<br>" +
+        "Electricity: " + data.electricity + " kWh<br>" +
+        "Vehicle: " + data.vehicle + " km<br>" +
+        "Gas: " + data.gas + " kg<br>" +
+        "<b>Total CO₂: " + data.totalCO2 + " kg</b>";
+    }
+  </script>
+
+  <!-- <script>
+        document.getElementById("userNameFooter").innerText = localStorage.getItem("userName") || "Guest";
+    </script> -->
+
+</body>
+</html>

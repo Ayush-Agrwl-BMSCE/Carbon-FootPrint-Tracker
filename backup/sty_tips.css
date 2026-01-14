@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  overflow-x: hidden;
+}
+
+/* SHARED BLURRED BACKGROUND */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: 
+    linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+    url("https://www.interreg-central.eu/wp-content/uploads/2024/11/AdobeStock_537514330-scaled-1.jpeg")
+    center / cover no-repeat;
+  filter: blur(18px);
+  transform: scale(1.1);
+  z-index: -1;
+}
+
+/* SHARED HEADER STYLE */
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  color: white;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.top-header h1 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.top-header p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+.user-box > p{
+
+text-align: right;}
+
+.button-container {
+  display: flex;
+  gap: 10px;
+}
+
+/* SHARED BUTTON STYLES */
+
+.logout-btn {
+    width: 100%;
+    margin-top: 25px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(5px);
+}
+
+.logout-btn:hover {
+    background: #ff5f5f;
+    border-color: #ff5f5f;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 95, 95, 0.4);
+}
+
+.home-btn {
+    width: 100%;
+    margin-top: 25px;
+    padding: 10px 20px;
+    border-radius: 40px;
+    border: none;
+    /* Use a gradient similar to your 'Upload' button but different colors */
+    background: linear-gradient(to right, #284e0f, #3b9661); 
+    color: rgb(248, 247, 247);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    margin-right:20px;
+}
+
+.home-btn:hover {
+    transform: scale(1.04);
+    filter: brightness(1.2);
+}
+
+.history-btn {
+    width: 100%;
+    margin-top: 25px;
+    padding: 10px 20px;
+    border-radius: 40px;
+    border: none;
+    /* Use a gradient similar to your 'Upload' button but different colors */
+    background: linear-gradient(to right, #284e0f, #3b9661); 
+    color: rgb(248, 247, 247);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    margin-right:20px;
+}
+
+.history-btn:hover {
+    transform: scale(1.04);
+    filter: brightness(1.2);
+}
+
+/* WIDER GLASS CONTAINER FOR TIPS */
+.container {
+  width: 90%;
+  max-width: 800px; /* Wider than home page for readability */
+  margin: 40px auto;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(20px);
+  padding: 35px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  color: #bed4b0;
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+  color: white;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* DYNAMIC TIP CARDS */
+.tip-card {
+  background: rgba(0, 0, 0, 0.2);
+  border-left: 5px solid #3b9661;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+.tip-card:hover {
+  background: rgba(0, 0, 0, 0.3);
+  transform: translateX(5px);
+}
+
+.tip-card h3 {
+  margin: 0 0 10px 0;
+  color: #90ee90;
+  font-size: 1.2rem;
+}
+
+.tip-card p {
+  margin: 0;
+  color: white;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* FOOTER */
+footer {
+  margin-top: auto;
+  background: rgba(0, 0, 0, 0.25);
+  color: white;
+  text-align: center;
+  padding: 12px;
+  font-size: 13px;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 600px) {
+  .top-header {
+    flex-direction: column;
+    padding: 20px;
+  }
+  .button-container {
+    margin-top: 15px;
+  }
+  .container {
+    width: 95%;
+    padding: 20px;
+  }
+}
+
+/* Specific styles for tip cards within the glass container
+    .tip-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-left: 5px solid #90ee90;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 8px;
+      text-align: left;
+    }
+    .tip-card h3 {
+      color: #90ee90;
+      margin-bottom: 5px;
+      font-size: 1.2rem;
+    }
+    .tip-card p {
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+    .back-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid white;
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 0.8rem;
+    } 
+*/
